@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+    <meta name="description" content="Default Description">
+    <meta name="keywords" content="fashion, store, E-commerce">
+    <meta name="robots" content="*">
+    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/login/css/material-design-iconic-font.min.css}">
+
+    <!-- CSS Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/revslider.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bxslider.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login/style.css}">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+
+</head>
+
+<body>
+<div th:replace="fragments/header :: header_info"></div>
+
+<div id="page">
+
+
+    <div class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-title">
+                        <h2>Login</h2>
+                    </div>
+                </div>
+                <!--col-xs-12-->
+            </div>
+            <!--row-->
+        </div>
+        <!--container-->
+    </div>
+
+
+    <!-- BEGIN Main Container -->
+
+<!--    <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">-->
+
+<!--        <div class="main">-->
+<!--            <div class="account-login container">-->
+<!--                &lt;!&ndash;page-title&ndash;&gt;-->
+
+<!--                <form th:action="@{/login}" method="post" id="login-form">-->
+<!--                    <input name="form_key" type="hidden" value="EPYwQxF6xoWcjLUr">-->
+<!--                    <fieldset class="col2-set">-->
+<!--                        <div class="col-1 new-users">-->
+<!--                            <strong>New Customers</strong>-->
+<!--                            <div class="content">-->
+
+<!--                                <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>-->
+<!--                                <div class="buttons-set">-->
+<!--                                    <button type="button" title="Create an Account" class="button create-account" th:href="@{'/register'}" role="button" onClick="">-->
+<!--                                        <span>Create an Account</span></button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-2 registered-users">-->
+<!--                            <strong>Registered Customers</strong>-->
+<!--                            <div th:if="${param.error}">-->
+<!--                                <div class="alert alert-danger">-->
+<!--                                    Invalid username and password.-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div th:if="${param.logout}">-->
+<!--                                <div class="alert alert-info">-->
+<!--                                    You have been logged out.-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="content">-->
+<!--                                <p>If you have an account with us, please log in.</p>-->
+
+<!--                                <ul class="form-list">-->
+<!--                                    <li>-->
+<!--                                        <label for="email">Email Address<em class="required">*</em></label>-->
+<!--                                        <div class="input-box">-->
+<!--                                            <input type="text" name="login[username]" value="" id="email" class="input-text required-entry validate-email" title="Email Address">-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <label for="pass">Password<em class="required">*</em></label>-->
+<!--                                        <div class="input-box">-->
+<!--                                            <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="Password">-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <div class="remember-me-popup">-->
+<!--                                    <div class="remember-me-popup-head" style="display:none">-->
+<!--                                        <h3 id="text2">What's this?</h3>-->
+<!--                                        <a href="#" class="remember-me-popup-close" onClick="showDiv()" title="Close">Close</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="remember-me-popup-body" style="display:none">-->
+<!--                                        <p id="text1">Checking "Remember Me" will let you access your shopping cart on this computer when you are logged out</p>-->
+<!--                                        <div class="remember-me-popup-close-button a-right">-->
+<!--                                            <a href="#" class="remember-me-popup-close button" title="Close" onClick="-->
+<!--            showDiv()"><span>Close</span></a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <p class="required">* Required Fields</p>-->
+
+
+
+<!--                                <div class="buttons-set">-->
+
+<!--                                    <button type="submit" class="button login" title="Login" name="send" id="send2"><span>Login</span></button>-->
+
+<!--                                    <a href="#" class="forgot-word">Forgot Your Password?</a>-->
+<!--                                </div> &lt;!&ndash;buttons-set&ndash;&gt;-->
+<!--                            </div> &lt;!&ndash;content&ndash;&gt;-->
+<!--                        </div> &lt;!&ndash;col-2 registered-users&ndash;&gt;-->
+<!--                    </fieldset> &lt;!&ndash;col2-set&ndash;&gt;-->
+<!--                </form>-->
+
+<!--            </div> &lt;!&ndash;account-login&ndash;&gt;-->
+
+<!--        </div>&lt;!&ndash;main-container&ndash;&gt;-->
+
+<!--    </div> &lt;!&ndash;col1-layout&ndash;&gt;-->
+
+
+
+
+
+    <div class="main" style="margin-top: -120px">
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img th:src="@{img/signin-image.jpg}" alt="sing ip image"></figure>
+                        <a style="font-size: large"href="/register" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <form style="font-size: 20px" class="register-form" th:action="@{/login}" method="post" >
+
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger">
+                                    Invalid username and password.
+                                </div>
+                            </div>
+                            <div th:if="${param.logout}">
+                                <div class="alert alert-info">
+                                    You have been logged out.
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input style="font-size: medium" type="text" name="username" id="username" placeholder="UserName" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                <input style="font-size: medium" type="password" name="password" id="password" placeholder="Password" aria-label="password"/>
+                            </div>
+                            <div class="form-group">
+                                <input style="font-size: medium" type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input style="font-size: medium" type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                        </form>
+
+                        <div class="social-login">
+                            <span style="font-size: large"class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+
+
+
+    <div class="our-features-box wow bounceInUp animated animated">
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="feature-box free-shipping">
+                        <div class="icon-truck"></div>
+                        <div class="content">FREE SHIPPING on order over $99</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-box need-help">
+                        <div class="icon-support"></div>
+                        <div class="content">Need Help +1 800 123 1234</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-box money-back">
+                        <div class="icon-money"></div>
+                        <div class="content">Money Back Guarantee</div>
+                    </div>
+                </li>
+                <li class="last">
+                    <div class="feature-box return-policy">
+                        <div class="icon-return"></div>
+                        <div class="content">30 days return Service</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <div th:replace="fragments/footer :: footer_info"></div>
+    <!-- JavaScript -->
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/parallax.js}"></script>
+    <script type="text/javascript" th:src="@{js/revslider.js}"></script>
+    <script type="text/javascript" th:src="@{js/common.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.bxslider.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/owl.carousel.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.mobile-menu.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/login/jquery.main.js}"></script>
+
+
+</body>
+</html>
