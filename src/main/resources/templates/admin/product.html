@@ -76,7 +76,6 @@
 
                 <form style="max-width: 100%" class="header-search-form" th:object="${product}" th:action="${'/admin/product?'
                                         +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
-                                        +(#httpServletRequest.getParameter('manufacturerId')==null?'':('&manufacturerId='+#httpServletRequest.getParameter('manufacturerId')))
                                         +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
                                         +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
                                         +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))
@@ -121,12 +120,9 @@
                                     <th>STT</th>
                                     <th>Name</th>
                                     <th>Category</th>
-                                    <th>Manufacturer</th>
                                     <th>Amount</th>
                                     <th>Price</th>
                                     <th>Created Date</th>
-                                    <th>Realse Date</th>
-                                    <th>Color</th>
                                     <th>Edit Product</th>
                                 </tr>
                                 </thead>
@@ -136,12 +132,9 @@
                                         <td th:text="${product.getId()}"></td>
                                         <td th:text="${product.getName()}"></td>
                                         <td th:text="${product.getCategoryName()}"></td>
-                                        <td th:text="${product.getManufacturerName()}"></td>
                                         <td th:text="${product.getAmount()}"></td>
-                                        <td><span th:text="${product.getPrice()}"></span><span>  VNĐ</span></td>
+                                        <td><span th:text="${product.getPrice()}"></span><span>  $</span></td>
                                         <td th:text="${product.getCreatedDate()}"></td>
-                                        <td th:text="${product.getReleaseDate()}"></td>
-                                        <td th:text="${product.getColor()}"></td>
                                         <td>
                                             <i class="fa fa-edit edit-product" th:attr="data-product = ${product.getId()}" data-toggle="modal" title="Edit product" data-target="#exampleModalLong" style="cursor: pointer"></i>
                                         </td>
@@ -217,12 +210,7 @@
                             <option th:each="category : ${vm.getCategoryVMs()}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Manufacturer:</label>
-                        <select class="form-control" id="input-product-manufacturer">
-                            <option th:each="manufacturer : ${vm.getManufacturerVMs()}" th:value="${manufacturer.getId()}" th:text="${manufacturer.getName()}"></option>
-                        </select>
-                    </div>
+
                     <div class="form-group margin-bottom-15" style="margin-top: 20px">
                         <label>Amount</label>
                         <input type="number" class="form-control" id="input-product-amount">
@@ -233,17 +221,6 @@
                         <label>Price:</label>
                         <input type="text" class="form-control" style="display: block; margin: 5px ;width: 100%" id="input-product-price">
                     </div>
-                    <div class="form-group margin-bottom-15" style="margin-top: 20px">
-                        <label>ReleaseDate</label>
-                        <input type="text" class="form-control" id="input-product-release-date">
-                    </div>
-                    <div class="form-group">
-                        <label>Color:</label>
-                        <select class="form-control" id="input-product-color">
-                            <option th:each="color : ${vm.getColorVMs()}" th:value="${color}" th:text="${color}"></option>
-                        </select>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

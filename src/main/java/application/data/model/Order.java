@@ -40,7 +40,7 @@ public class Order {
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
-    private List<OrderProduct> orderProductList = new ArrayList<>();
+    private Set<OrderProduct> orderProducts = new HashSet<>();
 
     public int getId() {
         return id;
@@ -106,12 +106,14 @@ public class Order {
         this.price = price;
     }
 
-    public List<OrderProduct> getOrderProductList() {
-        return orderProductList;
+
+
+    public Set<OrderProduct> getOrderProducts() {
+        return orderProducts;
     }
 
-    public void setOrderProductList(List<OrderProduct> orderProductList) {
-        this.orderProductList = orderProductList;
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 
     public String getUserName() {

@@ -1,11 +1,9 @@
 package application.controller.web;
-
-import application.data.model.Cart;
-import application.data.model.User;
+import application.data.model.*;
 import application.data.service.CartService;
-import application.data.service.UserService;
+import application.data.service.SaleProductService;
+import application.model.viewmodel.cart.CartProductVM;
 import application.model.viewmodel.cart.CartVM;
-import application.model.viewmodel.common.LayoutHeaderAdminVM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +13,20 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class BaseController {
-    private static final Logger logger = LogManager.getLogger(BaseController.class);
-    @Autowired
-    private UserService userService;
+    private static final Logger logger = LogManager.getLogger(CartController.class);
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private SaleProductService saleProductService;
 
 
     public void checkCookie(HttpServletResponse response,
@@ -50,7 +53,6 @@ public class BaseController {
 
                 Cookie cookie2 = new Cookie("guid",guid);
                 cookie2.setPath("/");
-                cookie2.setMaxAge(60*60*24);
                 response.addCookie(cookie2);
             }
         } else {
@@ -90,78 +92,59 @@ public class BaseController {
 
         }
     }
+
     public CartVM setCartVM(String guid){
 
         CartVM cartVM = new CartVM();
 
-//        int productAmount = 0;
-//        double totalPrice = 0;
-//        List<CartProductVM> cartProductVMs = new ArrayList<>();
-//
-//        DecimalFormat df = new DecimalFormat("##,###,###");
-//
-//        try {
-//            if(guid != null) {
-//                Cart cartEntity = cartService.findFirstCartByGuid(guid);
-//                if(cartEntity != null) {
-//                    for(CartProduct cartProduct : cartEntity.getListCartProducts()) {
-//                        CartProductVM cartProductVM = new CartProductVM();
-//                        cartProductVM.setId(cartProduct.getId());
-//                        cartProductVM.setProductId(cartProduct.getProduct().getId());
-//                        cartProductVM.setProductName(cartProduct.getProduct().getName());
-//                        cartProductVM.setMainImage(cartProduct.getProduct().getMainImage());
-//                        cartProductVM.setAmount(cartProduct.getAmount());
-//                        double price;
-//                        if (cartProduct.getProduct().getPrice()!=setPriceVM(cartProduct.getProduct())){
-//                            cartProductVM.setHasSale(true);
-//                            cartProductVM.setPriceSaleProduct(df.format(setPriceVM(cartProduct.getProduct())));
-//                            cartProductVM.setPriceSale(df.format(cartProduct.getAmount()*setPriceVM(cartProduct.getProduct())));
-//                            price = cartProduct.getAmount()*setPriceVM(cartProduct.getProduct());
-//                            cartProductVM.setPrice(df.format(price));
-//                        }else {
-//                            cartProductVM.setHasSale(false);
-//                            price = cartProduct.getAmount()*cartProduct.getProduct().getPrice();
-//                            cartProductVM.setPrice(df.format(price));
-//                        }
-//
-//                        totalPrice += price;
-//                        productAmount += cartProduct.getAmount();
-//                        cartProductVM.setPriceSaleProduct(df.format(cartProduct.getProduct().getPrice()));
-//                        cartProductVMs.add(cartProductVM);
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            logger.error(e.getMessage());
-//        }
-//
-//
-//        cartVM.setProductAmount(productAmount);
-//        cartVM.setCartProductVMS(cartProductVMs);
-//        cartVM.setTotalPrice(df.format(totalPrice));
+        int productAmount = 0;
+        double totalPrice = 0;
+        List<CartProductVM> cartProductVMs = new ArrayList<>();
+
+        DecimalFormat df = new DecimalFormat("##,###,###");
+
+        try {
+            if(guid != null) {
+                Cart cartEntity = cartService.findFirstCartByGuid(guid);
+                if(cartEntity != null) {
+                    for(CartProduct cartProduct : cartEntity.getCartProducts()) {
+                        CartProductVM cartProductVM = new CartProductVM();
+                        cartProductVM.setId(cartProduct.getId());
+                        cartProductVM.setProductId(cartProduct.getProduct().getId());
+                        cartProductVM.setProductName(cartProduct.getProduct().getName());
+                        cartProductVM.setMainImage(cartProduct.getProduct().getMainImage());
+                        cartProductVM.setAmount(cartProduct.getAmount());
+                        double price;
+                        if (cartProduct.getProduct().getPrice()!=setPriceVM(cartProduct.getProduct())){
+                            cartProductVM.setHasSale(true);
+                            cartProductVM.setPriceSaleProduct(df.format(setPriceVM(cartProduct.getProduct())));
+                            cartProductVM.setPriceSale(df.format(cartProduct.getAmount()*setPriceVM(cartProduct.getProduct())));
+                            price = cartProduct.getAmount()*setPriceVM(cartProduct.getProduct());
+                            cartProductVM.setPrice(df.format(price));
+                        }else {
+                            cartProductVM.setHasSale(false);
+                            price = cartProduct.getAmount()*cartProduct.getProduct().getPrice();
+                            cartProductVM.setPrice(df.format(price));
+                        }
+
+                        totalPrice += price;
+                        productAmount += cartProduct.getAmount();
+                        cartProductVM.setPriceProduct(df.format(cartProduct.getProduct().getPrice()));
+                        cartProductVMs.add(cartProductVM);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+
+
+        cartVM.setProductAmount(productAmount);
+        cartVM.setCartProductVMs(cartProductVMs);
+        cartVM.setTotalPrice(df.format(totalPrice));
 
         return cartVM;
     }
-
-
-
-//    public Double setPriceVM(Product product){
-//        SaleProduct saleProduct = saleProductService.findSaleProductByProductIdAndCurrentDate(product.getId(),new Date());
-//
-//        if (saleProduct!= null){
-//            Sale sale = saleProduct.getSale();
-//            Double priceSale = product.getPrice()-product.getPrice()*sale.getSalePercent()/100-sale.getSaleMoney();
-//            if (priceSale<=0){
-//                return product.getPrice();
-//            }
-//            else return priceSale;
-//        }
-//
-//        return product.getPrice();
-//    }
-
-
-
     public String getGuid(HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
 
@@ -172,29 +155,19 @@ public class BaseController {
         }
         return null;
     }
+    public Double setPriceVM(Product product){
+        SaleProduct saleProduct = saleProductService.findSaleProductByProductIdAndCurrentDate(product.getId(),new Date());
 
-
-
-
-
-
-
-    public LayoutHeaderAdminVM getLayoutHeaderAdminVM() {
-
-        LayoutHeaderAdminVM vm = new LayoutHeaderAdminVM();
-
-        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userEntity = userService.findUserByUsername(username);
-
-        if(userEntity!=null) {
-            vm.setUserName(username);
-            if(userEntity.getAvatar() != null) {
-                vm.setAvatar(userEntity.getAvatar());
-            } else vm.setAvatar("https://aets.org.es/wp-content/uploads/2014/12/omita-el-icono-del-perfil-avatar-placeholder-gris-de-la-foto-99724602.jpg");
+        if (saleProduct!= null){
+            Sale sale = saleProduct.getSale();
+            Double priceSale = product.getPrice()-product.getPrice()*sale.getSalePercent()/100-sale.getSaleMoney();
+            if (priceSale<=0){
+                return product.getPrice();
+            }
+            else return priceSale;
         }
 
-        return vm;
-
+        return product.getPrice();
     }
 
 }

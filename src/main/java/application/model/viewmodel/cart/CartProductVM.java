@@ -8,6 +8,7 @@ public class CartProductVM {
     private int amount;
     private String productName;
     private String price;
+    private String priceProduct;
     private String priceSale;
     private String priceSaleProduct;
     private Boolean hasSale;
@@ -60,6 +61,14 @@ public class CartProductVM {
         this.price = price;
     }
 
+    public String getPriceProduct() {
+        return priceProduct;
+    }
+
+    public void setPriceProduct(String priceProduct) {
+        this.priceProduct = priceProduct;
+    }
+
     public String getPriceSale() {
         return priceSale;
     }
@@ -68,19 +77,19 @@ public class CartProductVM {
         this.priceSale = priceSale;
     }
 
-    public String getPriceSaleProduct() {
-        return priceSaleProduct;
-    }
-
-    public void setPriceSaleProduct(String priceSaleProduct) {
-        this.priceSaleProduct = priceSaleProduct;
-    }
-
     public Boolean getHasSale() {
         return hasSale;
     }
 
     public void setHasSale(Boolean hasSale) {
         this.hasSale = hasSale;
+    }
+
+    public String getPriceSaleProduct() {
+        return priceSaleProduct;
+    }
+
+    public void setPriceSaleProduct(String priceSaleProduct) {
+        this.priceSaleProduct = priceSaleProduct;
     }
 }

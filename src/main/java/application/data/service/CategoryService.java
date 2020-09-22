@@ -2,9 +2,8 @@ package application.data.service;
 
 import application.data.model.Category;
 import application.data.repository.CategoryRepository;
+import application.model.viewmodel.common.CategoryVM;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,13 +46,11 @@ public class CategoryService {
         }
     }
 
-    public long getTotalCategories()
-    {
+    public long getTotalCategories(){
         return categoryRepository.getTotalCategories();
     }
 
-
-    public Page<Category> getListCategoryByCategoryNameContaining(Pageable pageable, String categoryName){
-        return categoryRepository.getListCategoryByCategoryNameContaining(pageable,categoryName);
+    public List<CategoryVM> getListAllCategoryVMs(){
+        return categoryRepository.getListAllCategoryVMs();
     }
 }

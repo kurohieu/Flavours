@@ -1,7 +1,7 @@
 package application.data.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity(name = "db_user")
 public class User {
@@ -11,37 +11,35 @@ public class User {
     @Id
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "username",nullable = false)
     private String userName;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String email;
-
-    @Column(name = "avatar")
-    private String avatar;
-
-    @Column(name = "gender")
-    private int gender;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "password_hash")
-    private String passwordHash;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "created_date")
+    @Column(name = "gender")
+    private int gender;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "avatar")
+    private String avatar;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "password_hash",nullable = false)
+    private String passwordHash;
+
+    @Column(name = "created_date",nullable = false)
     private Date creadedDate;
 
     @Transient
     private String password;
-
-
 
 
     public int getId() {
@@ -68,6 +66,30 @@ public class User {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAvatar() {
         return avatar;
     }
@@ -84,28 +106,12 @@ public class User {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPasswordHash() {
         return passwordHash;
     }
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Date getCreadedDate() {
@@ -124,11 +130,6 @@ public class User {
         this.password = password;
     }
 
-    public int getGender() {
-        return gender;
-    }
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+
 }

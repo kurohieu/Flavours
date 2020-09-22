@@ -10,25 +10,25 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("select count(p.id) from db_product p")
     long getTotalProducts();
 
     @Query("SELECT p FROM db_product p " +
             "WHERE (:categoryId IS NULL OR (p.categoryId = :categoryId))" +
-            "AND (:priceMin IS NULL OR :priceMax IS NULL OR (p.price BETWEEN :priceMin AND :priceMax))"+
             "AND (:productName IS NULL OR UPPER(p.name) LIKE CONCAT('%',UPPER(:productName),'%'))")
-    Page<Product> getListProductByCategoryOrProductNameContaining(Pageable pageable,
-                                                                  @Param("categoryId") Integer categoryId,
-                                                                  @Param("priceMin") Double priceMin,
-                                                                  @Param("priceMax") Double priceMax,
-                                                                  @Param("productName") String productName);
+    Page<Product> getListProductByCategoryOrProductNameContaining(Pageable pageable, @Param("categoryId") Integer categoryId, @Param("productName") String productName);
+
+
+
+
+
 
     @Query("SELECT p FROM db_product p WHERE p.categoryId = :categoryId")
     List<Product> getListProductByCategoryId(@Param("categoryId") Integer categoryId);
 
+    @Query(value = "SELECT * FROM db_product p ORDER BY p.created_date DESC LIMIT 10", nativeQuery = true)
+    List<Product> getListNewProduct();
 
-    @Query(value = "SELECT * FROM db_product p ORDER BY p.created_Date DESC LIMIT 9", nativeQuery = true)
-    List<Product>getListLatestProducts();
 }

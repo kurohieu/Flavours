@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface OrderRepository extends JpaRepository<Order,Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT o FROM db_order o " +
             "WHERE (:guid IS NULL OR (o.guid = :guid))" +

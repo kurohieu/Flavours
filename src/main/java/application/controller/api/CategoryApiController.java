@@ -4,50 +4,19 @@ package application.controller.api;
 import application.data.model.Category;
 import application.data.service.CategoryService;
 import application.model.api.BaseApiResult;
-
 import application.model.api.DataApiResult;
 import application.model.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/category")
 public class CategoryApiController {
 
-
-
    @Autowired
    private CategoryService categoryService;
-
-   @Transactional
-   @GetMapping("/fake")
-    public BaseApiResult fakeCategory(){
-      BaseApiResult result = new BaseApiResult();
-
-      try {
-         long totalCategories = categoryService.getTotalCategories();
-         List<Category> categoryList = new ArrayList<>();
-         for(long i = totalCategories +1; i<= totalCategories + 5; i++) {
-            Category category = new Category();
-            category.setName("Category " + i);
-            category.setShortDesc("Category " + i + " short desc");
-            category.setCreatedDate(new Date());
-            categoryList.add(category);
-         }
-         categoryService.addNewListCategories(categoryList);
-         result.setSuccess(true);
-         result.setMessage("Fake list categories success !");
-      } catch (Exception e) {
-         result.setSuccess(false);
-         result.setMessage(e.getMessage());
-      }
-      return result;
-   }
 
     @PostMapping(value = "/create")
     public BaseApiResult createProduct(@RequestBody CategoryDTO dto){
@@ -58,7 +27,6 @@ public class CategoryApiController {
             category.setName(dto.getName());
             category.setShortDesc(dto.getShortDesc());
             category.setCreatedDate(new Date());
-            category.setMainImage((dto.getMainImage()));
             categoryService.addNewCategory(category);
             result.setData(category.getId());
             result.setMessage("Save category successfully: " + category.getId());
@@ -72,18 +40,22 @@ public class CategoryApiController {
 
     @PostMapping("/update/{categoryId}")
     public BaseApiResult updateCategory(@PathVariable int categoryId,
-                                       @RequestBody CategoryDTO dto) {
+                                        @RequestBody CategoryDTO dto) {
         BaseApiResult result = new BaseApiResult();
 
         try {
             Category category = categoryService.findOne(categoryId);
-            category.setName(dto.getName());
-            category.setShortDesc(dto.getShortDesc());
-            category.setMainImage((dto.getMainImage()));
-            category.setCreatedDate(new Date());
-            categoryService.addNewCategory(category);
-            result.setSuccess(true);
-            result.setMessage("Update category successfully");
+            if(category == null) {
+                result.setSuccess(false);
+                result.setMessage("Can't find this category");
+            } else {
+                category.setName(dto.getName());
+                category.setShortDesc(dto.getShortDesc());
+                category.setCreatedDate(new Date());
+                categoryService.addNewCategory(category);
+                result.setSuccess(true);
+                result.setMessage("Update category successfully");
+            }
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -107,7 +79,7 @@ public class CategoryApiController {
                 dto.setId(categoryEntity.getId());
                 dto.setName(categoryEntity.getName());
                 dto.setShortDesc(categoryEntity.getShortDesc());
-                dto.setCreatedDate(new Date());
+                dto.setCreatedDate(categoryEntity.getCreatedDate());
                 result.setSuccess(true);
                 result.setData(dto);
                 result.setMessage("Success");

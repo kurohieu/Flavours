@@ -9,9 +9,7 @@ import java.util.Date;
 public class CategoryDTO {
     private int id;
     private String name;
-    private String mainImage;
 
-    @JsonProperty("short_desc")
     private String shortDesc;
 
     @JsonSerialize(using = CustomDateSerializer.class)
@@ -47,13 +45,5 @@ public class CategoryDTO {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
     }
 }

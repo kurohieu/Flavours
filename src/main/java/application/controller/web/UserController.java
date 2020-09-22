@@ -1,12 +1,9 @@
 package application.controller.web;
 
-import application.controller.web.BaseController;
 import application.data.model.User;
 import application.data.service.UserService;
-import application.model.viewmodel.cart.CartVM;
 import application.model.viewmodel.common.ProductVM;
 import application.model.viewmodel.user.ChangePasswordVM;
-
 import application.model.viewmodel.user.UserVM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +35,7 @@ public class UserController extends BaseController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/detail")
-    public String getUserDetail(@Valid @ModelAttribute("product") ProductVM productName,
+    public String getUserDetail(@Valid @ModelAttribute("productname") ProductVM productName,
                                 Model model,
                                 HttpServletResponse response,
                                 HttpServletRequest request,
@@ -49,9 +46,7 @@ public class UserController extends BaseController {
          * check cookie to create cart guid
          */
         this.checkCookie(response,request,principal);
-        String guid = getGuid(request);
 
-        CartVM cartVM = setCartVM(guid);
 
 
         UserVM userVM = new UserVM();
@@ -64,11 +59,11 @@ public class UserController extends BaseController {
         userVM.setAvatar(userEntity.getAvatar());
         userVM.setEmail(userEntity.getEmail());
         userVM.setGender(userEntity.getGender());
-        userVM.setName(userEntity.getUserName());
+        userVM.setName(userEntity.getName());
         userVM.setPhoneNumber(userEntity.getPhoneNumber());
 
+
         model.addAttribute("user",userVM);
-        model.addAttribute("cartVM",cartVM);
 
         return "/user-detail";
     }
@@ -98,18 +93,13 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/change-password")
-    public String changePassWord(@Valid @ModelAttribute("product") ProductVM productName,
-                                 Model model,
-                                 HttpServletResponse response,
-                                 HttpServletRequest request,
-                                 final Principal principal) {
+    public String changePassWord(@Valid @ModelAttribute("productname") ProductVM productName,
+                                 Model model) {
 
-        this.checkCookie(response,request,principal);
-        String guid = getGuid(request);
         ChangePasswordVM changePasswordVM = new ChangePasswordVM();
-        CartVM cartVM = setCartVM(guid);
 
-        model.addAttribute("cartVM",cartVM);
+
+
         model.addAttribute("changePassword", changePasswordVM);
         return "/change-password";
     }

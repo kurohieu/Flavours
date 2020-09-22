@@ -8,40 +8,25 @@ import java.util.List;
 
 public class AdminProductVM {
 
-    private List<ProductVM> productVMList;
-    private List<CategoryVM> categoryVMList;
-    private String keyWord;
-    private LayoutHeaderAdminVM layoutHeaderAdminVM;
+    private List<ProductVM> productVMs;
+    private List<CategoryVM> categoryVMs;
 
-    public List<ProductVM> getProductVMList() {
-        return productVMList;
+
+
+    public List<ProductVM> getProductVMs() {
+        return productVMs;
     }
 
-    public void setProductVMList(List<ProductVM> productVMList) {
-        this.productVMList = productVMList;
+    public void setProductVMs(List<ProductVM> productVMs) {
+        this.productVMs = productVMs;
     }
 
-    public List<CategoryVM> getCategoryVMList() {
-        return categoryVMList;
+    public List<CategoryVM> getCategoryVMs() {
+        return categoryVMs;
     }
 
-    public void setCategoryVMList(List<CategoryVM> categoryVMList) {
-        this.categoryVMList = categoryVMList;
+    public void setCategoryVMs(List<CategoryVM> categoryVMs) {
+        this.categoryVMs = categoryVMs;
     }
 
-    public String getKeyWord() {
-        return keyWord;
-    }
-
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
-    }
-
-    public LayoutHeaderAdminVM getLayoutHeaderAdminVM() {
-        return layoutHeaderAdminVM;
-    }
-
-    public void setLayoutHeaderAdminVM(LayoutHeaderAdminVM layoutHeaderAdminVM) {
-        this.layoutHeaderAdminVM = layoutHeaderAdminVM;
-    }
 }

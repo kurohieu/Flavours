@@ -2,6 +2,7 @@ package application.model.dto;
 
 import application.extension.CustomDateDeserializer;
 import application.extension.CustomDateSerializer;
+import application.extension.CustomPriceSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -12,17 +13,17 @@ public class ProductDTO {
     private int id;
 //    @JsonProperty("categoryId")
     private int categoryId;
-    private String categoryName;
     private String name;
     private String shortDesc;
     private String mainImage;
+
     private Double price;
-    private Double salePrice;
-    private int salePercent;
-    private Date createdDate;
 
     @JsonSerialize(using = CustomDateSerializer.class)
     @JsonDeserialize(using = CustomDateDeserializer.class)
+
+
+    private Date createdDate;
 
     public int getId() {
         return id;
@@ -38,14 +39,6 @@ public class ProductDTO {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getName() {
@@ -78,22 +71,6 @@ public class ProductDTO {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public int getSalePercent() {
-        return salePercent;
-    }
-
-    public void setSalePercent(int salePercent) {
-        this.salePercent = salePercent;
     }
 
     public Date getCreatedDate() {

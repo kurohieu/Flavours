@@ -1,169 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!DOCTYPE html>
+<html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>Register</title>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
-    <meta name="description" content="Default Description">
-    <meta name="keywords" content="fashion, store, E-commerce">
-    <meta name="robots" content="*">
-    <link rel="icon" href="#" type="image/x-icon">
-    <link rel="shortcut icon" href="#" type="image/x-icon">
-
-
-    <!-- Font Icon -->
-    <link rel="stylesheet" th:href="@{/fonts/login/css/material-design-iconic-font.min.css}">
-
-
-    <!-- CSS Style -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/revslider.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bxslider.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login/style.css}">
-
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
-    <meta name="viewport" content="initial-scale=1.0, width=device-width">
-
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css-register/roboto-font.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{fonts/font-register/font-awesome-5/css/fontawesome-all.min.css}">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" th:href="@{/css/css-register/style.css}"/>
 </head>
-
-<body>
-<div th:replace="fragments/header :: header_info"></div>
-
-
-<div class="page-heading">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="page-title">
-                    <h2>Create an Account</h2>
+<body class="form-v5">
+<div class="page-content">
+    <div class="form-v5-content">
+        <form class="form-detail" th:action="@{/register-user}" th:object="${user}" method="post">
+            <h2>Đăng ký tài khoản</h2>
+            <div class="form-row">
+                <div th:if="${param.existed_username}" style="color: red">
+                    <div class="alert alert-danger">
+                        Đã tồn tại tên tài khoản
+                    </div>
                 </div>
+                <div th:unless="${param.existed_username}">
+                    <label for="full-name">Tên tài khoản</label>
+                </div>
+
+                <input type="text" name="full-name" id="full-name" th:field="*{userName}" class="input-text" placeholder="Tên tài khoản" required>
+                <i class="fas fa-user"></i>
             </div>
-            <!--col-xs-12-->
-        </div>
-        <!--row-->
-    </div>
-    <!--container-->
-</div>
-
-<div class="main" style="margin-top: -120px">
-
-    <!-- Sign up form -->
-    <section class="signup">
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title">Register</h2>
-                    <div th:if="${param.email_exits}">
-                        <div class="alert alert-danger">
-                            email_exits
-                        </div>
-                    </div>
-                    <div th:if="${param.user_exits}">
-                        <div class="alert alert-danger">
-                            user_exits
-                        </div>
-                    </div>
-                    <div th:if="${param.error_system}">
-                        <div class="alert alert-danger">
-                            error_system
-                        </div>
-                    </div>
-                    <form style="font-size: 20px" class="register-form" id="register-form"th:action="@{/register-user}" th:object="${user}" method="post">
-                        <div class="form-group">
-                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input style="font-size: medium" type="text" id="username" th:field="*{userName}" name="username" placeholder="Your UserName"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input style="font-size: medium" type="email" id="email" th:field="*{email}" name="email" placeholder="Your Email"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input style="font-size: medium" type="password" id="password" th:field="*{password}" name="password" placeholder="Your Password" required/>
-                        </div>
-
-
-                        <div class="form-group">
-                            <input style="font-size: medium" type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label style="font-size: medium" for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                        </div>
-                        <div class="form-group form-button">
-                            <input style="font-size: medium" type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                        </div>
-                    </form>
+            <div class="form-row">
+                <div th:if="${param.existed_email}" class="alert alert-danger"style="color: red">
+                    Đã tồn tại email
                 </div>
-                <div class="signup-image">
-                    <figure><img th:src="@{img/signup-image.jpg}" alt="sing up image"></figure>
-                    <a style="font-size: large" href="/login" class="signup-image-link">I am already member</a>
+                <div th:unless="${param.existed_email}">
+                    <label for="your-email">Email của bạn</label>
                 </div>
+
+                <input type="text" name="your-email" id="your-email" th:field="*{email}" class="input-text" placeholder="Email của bạn" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+                <i class="fas fa-envelope"></i>
             </div>
-        </div>
-    </section>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="our-features-box wow bounceInUp animated animated">
-    <div class="container">
-        <ul>
-            <li>
-                <div class="feature-box free-shipping">
-                    <div class="icon-truck"></div>
-                    <div class="content">FREE SHIPPING on order over $99</div>
-                </div>
-            </li>
-            <li>
-                <div class="feature-box need-help">
-                    <div class="icon-support"></div>
-                    <div class="content">Need Help +1 800 123 1234</div>
-                </div>
-            </li>
-            <li>
-                <div class="feature-box money-back">
-                    <div class="icon-money"></div>
-                    <div class="content">Money Back Guarantee</div>
-                </div>
-            </li>
-            <li class="last">
-                <div class="feature-box return-policy">
-                    <div class="icon-return"></div>
-                    <div class="content">30 days return Service</div>
-                </div>
-            </li>
-        </ul>
+            <div class="form-row">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" th:field="*{password}"  class="input-text" placeholder="Mật khẩu của bạn" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="form-row-last">
+                <input type="submit" name="register" class="register" value="Register">
+            </div>
+        </form>
     </div>
 </div>
-
-<div th:replace="fragments/footer :: footer_info"></div>
-<!-- JavaScript -->
-<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{js/parallax.js}"></script>
-<script type="text/javascript" th:src="@{js/revslider.js}"></script>
-<script type="text/javascript" th:src="@{js/common.js}"></script>
-<script type="text/javascript" th:src="@{js/jquery.bxslider.min.js}"></script>
-<script type="text/javascript" th:src="@{js/owl.carousel.min.js}"></script>
-<script type="text/javascript" th:src="@{js/jquery.mobile-menu.min.js}"></script>
-<script type="text/javascript" th:src="@{js/login/jquery.main.js}"></script>
-
-
 </body>
 </html>

@@ -5,7 +5,7 @@ import java.util.List;
 public class CartVM {
 
     private int productAmount;
-    private List<CartProductVM> cartProductVMS;
+    private List<CartProductVM> cartProductVMs;
     private String totalPrice;
 
     public int getProductAmount() {
@@ -16,15 +16,13 @@ public class CartVM {
         this.productAmount = productAmount;
     }
 
-    public List<CartProductVM> getCartProductVMS() {
-        return cartProductVMS;
+    public List<CartProductVM> getCartProductVMs() {
+        return cartProductVMs;
     }
 
-    public void setCartProductVMS(List<CartProductVM> cartProductVMS) {
-        this.cartProductVMS = cartProductVMS;
+    public void setCartProductVMs(List<CartProductVM> cartProductVMs) {
+        this.cartProductVMs = cartProductVMs;
     }
-
-
 
     public String getTotalPrice() {
         return totalPrice;

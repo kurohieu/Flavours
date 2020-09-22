@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Flavours Check-out Page</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+    <meta name="description" content="Default Description">
+    <meta name="keywords" content="fashion, store, E-commerce">
+    <meta name="robots" content="*">
+    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <!-- CSS Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/revslider.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bxslider.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" media="all"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+
+</head>
+
+<body>
+<div th:replace="fragments/header :: header_info"></div>
+
+
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-title">
+                    <h2>CheckOut</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+
+
+<div class="container" style="margin-bottom: 200px">
+    <h2 style="margin-top: 40px; margin-bottom: 30px">Order history</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th colspan="1">Index</th>
+                <th colspan="2">Custome Name</th>
+                <th colspan="2">Email</th>
+                <th colspan="2">Address</th>
+                <th colspan="2">Phone Number</th>
+                <th colspan="2">Order status</th>
+                <th colspan="1">Total Price</th>
+                <th colspan="1"> Order creation date</th>
+                <th colspan="2">Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order,iter : ${vm.getOrderVMS()}">
+                <td colspan="1" th:text="${iter.index+1}" ></td>
+                <td colspan="2" th:text="${order.getCustomerName()}"></td>
+                <td colspan="2" th:text="${order.getEmail()}"></td>
+                <td colspan="2" th:text="${order.getAddress()}"></td>
+                <td colspan="2" th:text="${order.getPhoneNumber()}"></td>
+                <th colspan="2" th:text="${order.getStatus()}"></th>
+                <td colspan="1" ><span th:text="${order.getPrice()}"></span><span> $</span></td>
+                <td colspan="1" th:text="${order.getCreatedDate()}"></td>
+                <td colspan="2">
+                    <a class="btn btn-primary" th:href="@{'/order/history/'+${order.getId()}}" role="button">Detail</a>
+                </td>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="our-features-box wow bounceInUp animated animated">
+    <div class="container">
+        <ul>
+            <li>
+                <div class="feature-box free-shipping">
+                    <div class="icon-truck"></div>
+                    <div class="content">FREE SHIPPING on order over $99</div>
+                </div>
+            </li>
+            <li>
+                <div class="feature-box need-help">
+                    <div class="icon-support"></div>
+                    <div class="content">Need Help +1 800 123 1234</div>
+                </div>
+            </li>
+            <li>
+                <div class="feature-box money-back">
+                    <div class="icon-money"></div>
+                    <div class="content">Money Back Guarantee</div>
+                </div>
+            </li>
+            <li class="last">
+                <div class="feature-box return-policy">
+                    <div class="icon-return"></div>
+                    <div class="content">30 days return Service</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer_info"></div>
+<!-- JavaScript -->
+<script type="text/javascript"
+        src="https://ahachat.com/customer-chats/customer_chat_Cr6hUt8Yzl5ef8651df3f44.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+<!--basic-->
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{js/parallax.js}"></script>
+<script type="text/javascript" th:src="@{js/revslider.js}"></script>
+<script type="text/javascript" th:src="@{js/common.js}"></script>
+<script type="text/javascript" th:src="@{js/jquery.bxslider.min.js}"></script>
+<script type="text/javascript" th:src="@{js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{js/jquery.mobile-menu.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/home.js}"></script>
+<script type="text/javascript" th:src="@{/js/cart.js}"></script>
+<script type="text/javascript" th:src="@{/js/print.min.js}"></script>
+
+
+</body>
+</html>

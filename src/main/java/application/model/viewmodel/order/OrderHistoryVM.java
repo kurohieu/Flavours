@@ -4,9 +4,7 @@ import java.util.List;
 
 public class OrderHistoryVM {
 
-
     private List<OrderVM> orderVMS;
-
 
 
     public List<OrderVM> getOrderVMS() {

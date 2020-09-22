@@ -10,21 +10,11 @@ public class UserRole {
     @Column(name = "user_role_id")
     private int id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private int userId;
 
-    @Column(name = "role_id")
+    @Column(name = "role_id",nullable = false)
     private int roleId;
-
-
-    public UserRole() {
-    }
-
-    public UserRole(int userId, int roleId) {
-        this.userId = userId;
-        this.roleId = roleId;
-    }
-
 
     public int getId() {
         return id;
@@ -49,6 +39,4 @@ public class UserRole {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
-
-
 }

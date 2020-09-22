@@ -46,7 +46,7 @@
         // images load really fast, e.g. from the cache.
         //var	ctx = this;
         setTimeout(function () {
-            //						 <img src="/images/loading.gif"/>
+            //						 <img src="/img/loading.gif"/>
             if (jQuerymouseTrap === null) {
                 var w = jWin.width();
                 jWin.parent().append(format('<div style="width:%0px;position:absolute;top:75%;left:%1px;text-align:center" class="cloud-zoom-loading" ></div>', w / 3, (w / 2) - (w / 6))).find(':last').css('opacity', 0.5);

@@ -1,5 +1,6 @@
 package application.controller.api;
 
+import application.data.model.Product;
 import application.data.model.ProductImage;
 import application.data.service.ProductImageService;
 import application.data.service.ProductService;
@@ -9,7 +10,10 @@ import application.model.dto.ProductImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping(path = "/api/product-image")
@@ -25,7 +29,7 @@ public class ProductImageApiController {
 
 
     @PostMapping(value = "/create")
-    public BaseApiResult createProductImage(@RequestBody ProductImageDTO dto){
+    public DataApiResult createProductImage(@RequestBody ProductImageDTO dto){
         DataApiResult result = new DataApiResult();
 
         try {

@@ -10,11 +10,11 @@ public class ProductVM {
     private String shortDesc;
     private String mainImage;
     private String price;
-    private String salePrice;
-    private int salePercent;
+    private String priceSale;
+    private Boolean hasSale;
     private Date createdDate;
-    private List<ProductImageVM> productImageVMS;
-
+    private int amount;
+    private List<ProductImageVM> productImageVMs;
 
 
     public int getId() {
@@ -73,27 +73,39 @@ public class ProductVM {
         this.createdDate = createdDate;
     }
 
-    public List<ProductImageVM> getProductImageVMS() {
-        return productImageVMS;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setProductImageVMS(List<ProductImageVM> productImageVMS) {
-        this.productImageVMS = productImageVMS;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public String getSalePrice() {
-        return salePrice;
+
+    public List<ProductImageVM> getProductImageVMs() {
+        return productImageVMs;
     }
 
-    public void setSalePrice(String salePrice) {
-        this.salePrice = salePrice;
+    public void setProductImageVMs(List<ProductImageVM> productImageVMs) {
+        this.productImageVMs = productImageVMs;
     }
 
-    public int getSalePercent() {
-        return salePercent;
+
+    public String getPriceSale() {
+        return priceSale;
     }
 
-    public void setSalePercent(int salePercent) {
-        this.salePercent = salePercent;
+    public void setPriceSale(String priceSale) {
+        this.priceSale = priceSale;
     }
+
+    public Boolean getHasSale() {
+        return hasSale;
+    }
+
+    public void setHasSale(Boolean hasSale) {
+        this.hasSale = hasSale;
+    }
+
+
 }

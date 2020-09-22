@@ -15,6 +15,10 @@ public class ChartVM {
         return chartDataVMS;
     }
 
+    public void setChartDataVMS(List<ChartDataVM> chartDataVMS) {
+        this.chartDataVMS = chartDataVMS;
+    }
+
     public LayoutHeaderAdminVM getLayoutHeaderAdminVM() {
         return layoutHeaderAdminVM;
     }
@@ -23,7 +27,4 @@ public class ChartVM {
         this.layoutHeaderAdminVM = layoutHeaderAdminVM;
     }
 
-    public void setChartDataVMS(List<ChartDataVM> chartDataVMS) {
-        this.chartDataVMS = chartDataVMS;
-    }
 }

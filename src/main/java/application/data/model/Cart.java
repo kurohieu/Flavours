@@ -2,8 +2,8 @@ package application.data.model;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "db_cart")
 public class Cart {
@@ -19,8 +19,12 @@ public class Cart {
     @Column(name = "username")
     private String userName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
-    private List<CartProduct> listCartProducts = new ArrayList<>();
+
+
+
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
     public int getId() {
         return id;
@@ -46,11 +50,15 @@ public class Cart {
         this.userName = userName;
     }
 
-    public List<CartProduct> getListCartProducts() {
-        return listCartProducts;
+
+
+
+
+    public Set<CartProduct> getCartProducts() {
+        return cartProducts;
     }
 
-    public void setListCartProducts(List<CartProduct> listCartProducts) {
-        this.listCartProducts = listCartProducts;
+    public void setCartProducts(Set<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }

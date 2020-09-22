@@ -4,11 +4,9 @@ import java.util.List;
 
 public class OrderDetailVM {
 
-
     private List<OrderProductVM> orderProductVMS;
     private String totalPrice;
     private int totalProduct;
-
 
 
     public List<OrderProductVM> getOrderProductVMS() {

@@ -1,6 +1,9 @@
 package application.data.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "db_order_product")
 public class OrderProduct {
@@ -16,19 +19,19 @@ public class OrderProduct {
     @Column(name = "order_id",nullable = false,updatable = false,insertable = false)
     private int orderId;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     @Column(name = "amount",nullable = false)
     private int amount;
 
     @Column(name = "price",nullable = false)
     private double price;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public int getId() {
         return id;
@@ -54,22 +57,6 @@ public class OrderProduct {
         this.orderId = orderId;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public int getAmount() {
         return amount;
     }
@@ -84,5 +71,21 @@ public class OrderProduct {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

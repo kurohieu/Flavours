@@ -7,7 +7,6 @@ public class ChangePasswordVM {
     private String confirmPassword;
 
 
-
     public String getCurrentPassword() {
         return currentPassword;
     }

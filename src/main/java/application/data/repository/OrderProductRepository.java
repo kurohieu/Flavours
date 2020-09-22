@@ -1,6 +1,7 @@
 package application.data.repository;
 
 import application.data.model.OrderProduct;
+import application.data.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,9 +14,4 @@ public interface OrderProductRepository extends JpaRepository<OrderProduct,Integ
             "\tORDER BY COUNT(op.amount) DESC \n" +
             "\tLIMIT 10", nativeQuery = true)
     List<Integer> getTopSellingProductId();
-
-
-
-
-
 }

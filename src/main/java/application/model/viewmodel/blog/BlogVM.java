@@ -1,19 +1,31 @@
 package application.model.viewmodel.blog;
 
+import java.util.Date;
+
 public class BlogVM {
 
-    private String name;
+    private int id;
+    private String status;
     private String image;
     private String link;
     private String title;
-    private String date;
+    private Date createdDate;
 
-    public String getName() {
-        return name;
+
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getImage() {
@@ -40,11 +52,11 @@ public class BlogVM {
         this.title = title;
     }
 
-    public String getDate() {
-        return date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }

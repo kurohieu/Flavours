@@ -4,7 +4,10 @@ import application.data.model.*;
 import application.data.service.*;
 import application.model.viewmodel.cart.CartVM;
 import application.model.viewmodel.common.ProductVM;
-import application.model.viewmodel.order.*;
+import application.model.viewmodel.order.OrderDetailVM;
+import application.model.viewmodel.order.OrderHistoryVM;
+import application.model.viewmodel.order.OrderProductVM;
+import application.model.viewmodel.order.OrderVM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(path = "/order")
@@ -36,21 +37,20 @@ public class OrderController extends BaseController {
     private OrderService orderService;
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
     private CartService cartService;
 
     @Autowired
     private CartProductService cartProductService;
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/checkout")
     public String checkout(Model model,
-                           @Valid @ModelAttribute("productname") ProductVM productName,
+                           @Valid @ModelAttribute("product") ProductVM productName,
                            HttpServletResponse response,
                            HttpServletRequest request,
                            final Principal principal) {
-        CheckoutVM vm = new CheckoutVM();
         OrderVM order = new OrderVM();
         String guid = getGuid(request);
         if(principal!= null) {
@@ -64,19 +64,21 @@ public class OrderController extends BaseController {
             }
         }
 
+        CartVM cartVM = setCartVM(guid);
 
         model.addAttribute("order",order);
-        model.addAttribute("vm",vm);
+        model.addAttribute("cartVM",cartVM);
         return "/checkout";
     }
 
     @PostMapping("/checkout")
-    public String checkout(Model model,
-            @Valid @ModelAttribute("order") OrderVM orderVM,
-                           @Valid @ModelAttribute("productname") ProductVM productName,
-                           HttpServletResponse response,
-                           HttpServletRequest request,
-                           final Principal principal) throws Exception {
+    public String checkout (Model model,
+                            @Valid @ModelAttribute("order") OrderVM orderVM,
+                            @Valid @ModelAttribute("product") ProductVM productName,
+                            HttpServletResponse response,
+                            HttpServletRequest request,
+                            final Principal principal) throws Exception {
+        DecimalFormat df = new DecimalFormat("##,###,###");
         Order order = new Order();
 
         boolean flag = false;
@@ -94,62 +96,81 @@ public class OrderController extends BaseController {
             }
         }
 
-        if(flag == true) {
+        try {
+            if(flag == true) {
 
-            double totalPrice = 0;
+                double totalPrice = 0;
 
-            if(principal != null) {
-                String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-                order.setUserName(username);
-            }
-
-            order.setGuid(guid);
-            order.setAddress(orderVM.getAddress());
-            order.setEmail(orderVM.getEmail());
-            order.setPhoneNumber(orderVM.getPhoneNumber());
-            order.setCustomerName(orderVM.getCustomerName());
-            order.setCreatedDate(new Date());
-            order.setStatus("Delivering");
-
-            Cart cartEntity = cartService.findFirstCartByGuid(guid);
-            if(cartEntity != null) {
-                List<OrderProduct> orderProducts = new ArrayList<>();
-                for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
-                    OrderProduct orderProduct = new OrderProduct();
-                    orderProduct.setOrder(order);
-                    orderProduct.setProduct(cartProduct.getProduct());
-                    orderProduct.setAmount(cartProduct.getAmount());
-
-
+                if(principal != null) {
+                    String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+                    order.setUserName(username);
                 }
 
-                order.setOrderProductList(orderProducts);
-                order.setPrice(totalPrice);
+                order.setGuid(guid);
+                order.setAddress(orderVM.getAddress());
+                order.setEmail(orderVM.getEmail());
+                order.setPhoneNumber(orderVM.getPhoneNumber());
+                order.setCustomerName(orderVM.getCustomerName());
+                order.setCreatedDate(new Date());
+                order.setStatus("Đang giao hàng");
 
-                orderService.addNewOrder(order);
+                Cart cartEntity = cartService.findFirstCartByGuid(guid);
+                if(cartEntity != null) {
+                    Set<OrderProduct> orderProducts = new HashSet<>();
+                    for (CartProduct cartProduct : cartEntity.getCartProducts()) {
+                        OrderProduct orderProduct = new OrderProduct();
+                        orderProduct.setOrder(order);
+                        orderProduct.setProduct(cartProduct.getProduct());
+                        orderProduct.setAmount(cartProduct.getAmount());
+                        /*update amount product after order*/
 
-                cartService.deleteCart(cartEntity.getId());
+                        double price;
+                        if (cartProduct.getProduct().getPrice()!=setPriceVM(cartProduct.getProduct())){
+                            price = cartProduct.getAmount()*setPriceVM(cartProduct.getProduct());
+                        }else {
+                            price = cartProduct.getAmount()*cartProduct.getProduct().getPrice();
+                        }
+
+                        totalPrice += price;
+
+                        orderProduct.setPrice(price);
+
+                        orderProducts.add(orderProduct);
+                    }
+
+                    order.setOrderProducts(orderProducts);
+                    order.setPrice(totalPrice);
+
+                    orderService.addNewOrder(order);
+
+                    cartService.deleteCart(cartEntity.getId());
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        /*CartVM*/
 
         CartVM cartVM = setCartVM(guid);
 
 
         model.addAttribute("cartVM",cartVM);
 
+
         return "redirect:/order/history";
     }
 
     @GetMapping("/history")
     public String orderHistory(Model model,
-                               @Valid @ModelAttribute("productname") ProductVM productName,
+                               @Valid @ModelAttribute("product") ProductVM productName,
                                HttpServletResponse response,
                                HttpServletRequest request,
                                final Principal principal) {
 
         OrderHistoryVM vm = new OrderHistoryVM();
 
-        DecimalFormat df = new DecimalFormat("####0.00");
+        DecimalFormat df = new DecimalFormat("##,###,###");
+
 
 
         List<OrderVM> orderVMS = new ArrayList<>();
@@ -189,11 +210,14 @@ public class OrderController extends BaseController {
                 orderVM.setPrice(df.format(order.getPrice()));
                 orderVM.setCreatedDate(order.getCreatedDate());
                 orderVM.setStatus(order.getStatus());
+
                 orderVMS.add(orderVM);
             }
         }
 
         CartVM cartVM = setCartVM(guid);
+
+
         vm.setOrderVMS(orderVMS);
 
         model.addAttribute("cartVM",cartVM);
@@ -205,7 +229,7 @@ public class OrderController extends BaseController {
 
     @GetMapping("/history/{orderId}")
     public String getOrderDetail(Model model,
-                                 @Valid @ModelAttribute("productname") ProductVM productName,
+                                 @Valid @ModelAttribute("product") ProductVM productName,
                                  @PathVariable("orderId") int orderId,
                                  HttpServletResponse response,
                                  HttpServletRequest request,
@@ -213,7 +237,7 @@ public class OrderController extends BaseController {
 
         OrderDetailVM vm = new OrderDetailVM();
         String guid = getGuid(request);
-        DecimalFormat df = new DecimalFormat("####0.00");
+        DecimalFormat df = new DecimalFormat("##,###,###");
 
         double totalPrice = 0;
         int totalProduct = 0;
@@ -223,7 +247,7 @@ public class OrderController extends BaseController {
         Order orderEntity = orderService.findOne(orderId);
 
         if(orderEntity != null) {
-            for(OrderProduct orderProduct : orderEntity.getOrderProductList()) {
+            for(OrderProduct orderProduct : orderEntity.getOrderProducts()) {
                 OrderProductVM orderProductVM = new OrderProductVM();
 
                 orderProductVM.setProductId(orderProduct.getProduct().getId());
@@ -240,9 +264,11 @@ public class OrderController extends BaseController {
         }
 
         CartVM cartVM = setCartVM(guid);
+
+
         vm.setOrderProductVMS(orderProductVMS);
         vm.setTotalPrice(df.format(totalPrice));
-        vm.setTotalProduct(orderProductVMS.size());
+        vm.setTotalProduct(totalProduct);
 
         model.addAttribute("cartVM",cartVM);
         model.addAttribute("vm",vm);
@@ -251,6 +277,6 @@ public class OrderController extends BaseController {
     }
 
 
-}
 
+}
 

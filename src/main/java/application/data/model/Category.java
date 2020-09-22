@@ -1,9 +1,7 @@
 package application.data.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity(name = "db_category")
 public class Category {
@@ -13,28 +11,17 @@ public class Category {
     @Id
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private List<Product> listProducts = new ArrayList<>();
-
-    @Column(name="name")
+    @Column(name="name",nullable = false)
     private String name;
 
     @Column(name = "short_desc")
     private String shortDesc;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date",nullable = false)
     private Date createdDate;
 
-    @Column(name = "main_image")
-    private String mainImage;
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private Set<Product> products= new HashSet<>();
 
     public int getId() {
         return id;
@@ -42,14 +29,6 @@ public class Category {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List<Product> getListProducts() {
-        return listProducts;
-    }
-
-    public void setListProducts(List<Product> listProducts) {
-        this.listProducts = listProducts;
     }
 
     public String getName() {
@@ -74,5 +53,13 @@ public class Category {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

@@ -47,7 +47,7 @@ jQuery(document).ready(function() {
             slideSpeed: 500,
             pagination: !1
         }),
-        /*  Featured Product Slider */
+        /*  `Featured Product` Slider */
         jQuery("#best-seller .slider-items").owlCarousel({
             items: 5,
             itemsDesktop: [1024, 4],

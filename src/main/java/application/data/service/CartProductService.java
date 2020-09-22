@@ -18,13 +18,13 @@ public class CartProductService {
     @Autowired
     private CartProductRepository cartProductRepository;
 
-    public void addNewCartProduct(CartProduct cartProduct) {
-        cartProductRepository.save(cartProduct);
+    public void addNewCartProduct(CartProduct cartProductModel) {
+        cartProductRepository.save(cartProductModel);
     }
 
-    public boolean updateCartProduct(CartProduct cartProduct) {
+    public boolean updateCartProduct(CartProduct cartProductModel) {
         try {
-            cartProductRepository.save(cartProduct);
+            cartProductRepository.save(cartProductModel);
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -32,13 +32,13 @@ public class CartProductService {
         return false;
     }
 
-    public CartProduct findOne(int cartProductId) {
-        return cartProductRepository.findOne(cartProductId);
+    public CartProduct findOne(int cartProductModelId) {
+        return cartProductRepository.findOne(cartProductModelId);
     }
 
-    public boolean deleteCartProduct(int cartProductId) {
+    public boolean deleteCartProduct(int cartProductModelId) {
         try {
-            cartProductRepository.delete(cartProductId);
+            cartProductRepository.delete(cartProductModelId);
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -47,9 +47,9 @@ public class CartProductService {
     }
 
     @Transactional
-    public boolean deleteListCartProducts(List<CartProduct> cartProducts) {
+    public boolean deleteListCartProducts(List<CartProduct> cartProductModels) {
         try {
-            cartProductRepository.delete(cartProducts);
+            cartProductRepository.delete(cartProductModels);
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage());

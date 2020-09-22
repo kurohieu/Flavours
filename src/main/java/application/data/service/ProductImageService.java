@@ -16,36 +16,36 @@ public class ProductImageService {
     private ProductImageRepository productImageRepository;
 
     @Transactional
-    public void addNewListProductImages(List<ProductImage> productImages) {
+    public void addNewListProductImages(List<ProductImage> productModelImages) {
         try {
-            productImageRepository.save(productImages);
+            productImageRepository.save(productModelImages);
         } catch (Exception e) {
         }
     }
 
-    public void addNewProductImage(ProductImage productImage) {
+    public void addNewProductImage(ProductImage productModelImage) {
         try {
-            productImageRepository.save(productImage);
+            productImageRepository.save(productModelImage);
         } catch (Exception e) {
         }
     }
 
-    public ProductImage findOne(int productImageId) {
-        return productImageRepository.findOne(productImageId);
+    public ProductImage findOne(int productModelImage) {
+        return productImageRepository.findOne(productModelImage);
     }
 
-    public boolean updateProductImage(ProductImage productImage) {
+    public boolean updateProductImage(ProductImage productModelImage) {
         try {
-            productImageRepository.save(productImage);
+            productImageRepository.save(productModelImage);
             return true;
         } catch (Exception e) {
         }
         return false;
     }
 
-    public boolean deleteProductImage(int productImageId) {
+    public boolean deleteProductImage(int productModelImage) {
         try {
-            productImageRepository.delete(productImageId);
+            productImageRepository.delete(productModelImage);
             return true;
         } catch (Exception e) {
         }

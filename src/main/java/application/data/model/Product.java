@@ -15,18 +15,25 @@ public class Product {
     @Column(name = "category_id", insertable = false, updatable = false)
     private int categoryId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<ProductImage> productImageList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    Set<ProductImage> productImages = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private List<CartProduct> cartProducts = new ArrayList<>();
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private Set<OrderProduct> orderProducts = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    private Set<SaleProduct> saleProducts = new HashSet<>();
 
 
     @Column(name = "name")
@@ -38,14 +45,9 @@ public class Product {
     @Column(name = "main_image")
     private String mainImage;
 
+
     @Column(name = "price")
     private Double price;
-
-    @Column(name = "sale_price" ,nullable = false)
-    private Double salePrice;
-
-    @Column(name = "sale_percent",nullable = false)
-    private Integer salePercent;
 
     @Column(name = "created_date")
     private Date createdDate;
@@ -74,28 +76,36 @@ public class Product {
         this.category = category;
     }
 
-    public List<ProductImage> getProductImageList() {
-        return productImageList;
+    public Set<ProductImage> getProductImages() {
+        return productImages;
     }
 
-    public void setProductImageList(List<ProductImage> productImageList) {
-        this.productImageList = productImageList;
+    public void setProductImages(Set<ProductImage> productImages) {
+        this.productImages = productImages;
     }
 
-    public List<CartProduct> getCartProducts() {
+    public Set<CartProduct> getCartProducts() {
         return cartProducts;
     }
 
-    public void setCartProducts(List<CartProduct> cartProducts) {
+    public void setCartProducts(Set<CartProduct> cartProducts) {
         this.cartProducts = cartProducts;
     }
 
-    public List<OrderProduct> getOrderProducts() {
+    public Set<OrderProduct> getOrderProducts() {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    public Set<SaleProduct> getSaleProducts() {
+        return saleProducts;
+    }
+
+    public void setSaleProducts(Set<SaleProduct> saleProducts) {
+        this.saleProducts = saleProducts;
     }
 
     public String getName() {
@@ -128,22 +138,6 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public Integer getSalePercent() {
-        return salePercent;
-    }
-
-    public void setSalePercent(Integer salePercent) {
-        this.salePercent = salePercent;
     }
 
     public Date getCreatedDate() {

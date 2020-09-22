@@ -23,8 +23,7 @@ public class Role {
     @JoinTable(name = "dbo_user_role",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<User> listRole = new HashSet<>();
-
+    private Set<User> users = new HashSet<>();
 
     public int getId() {
         return Id;
@@ -42,11 +41,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getListRole() {
-        return listRole;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setListRole(Set<User> listRole) {
-        this.listRole = listRole;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

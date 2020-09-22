@@ -8,7 +8,17 @@ public class CategoryVM {
     private String name;
     private String shortDesc;
     private Date createdDate;
-    private String nameImage;
+
+    public CategoryVM(int id, String name, String shortDesc, Date createdDate) {
+        this.id = id;
+        this.name = name;
+        this.shortDesc = shortDesc;
+        this.createdDate = createdDate;
+    }
+
+    public CategoryVM() {
+
+    }
 
     public int getId() {
         return id;
@@ -40,13 +50,5 @@ public class CategoryVM {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public String getNameImage() {
-        return nameImage;
-    }
-
-    public void setNameImage(String nameImage) {
-        this.nameImage = nameImage;
     }
 }

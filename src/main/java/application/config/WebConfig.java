@@ -79,14 +79,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>)) {
                 ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
             }
-        });
+        }); 
         return tomcat;
     }
 
-    /**
-     * Fix bean cookie
-     * @return
-     */
     @Bean
     public EmbeddedServletContainerCustomizer customizer() {
         return container -> {

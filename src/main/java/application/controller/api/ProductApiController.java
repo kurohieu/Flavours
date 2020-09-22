@@ -1,46 +1,46 @@
 package application.controller.api;
 
+
 import application.data.model.Product;
 import application.data.service.CategoryService;
 import application.data.service.ProductService;
+import application.extension.LocalDateAttributeConverter;
 import application.model.api.BaseApiResult;
 import application.model.api.DataApiResult;
 import application.model.dto.ProductDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping(path = "/api/product")
 public class ProductApiController {
 
-    private static final Logger logger = LogManager.getLogger(ProductApiController.class);
-
     @Autowired
     private ProductService productService;
+
+
 
     @Autowired
     private CategoryService categoryService;
 
-
-
     @PostMapping(value = "/create")
-    public BaseApiResult createProduct(@RequestBody ProductDTO dto){
-        DataApiResult result = new DataApiResult();
+    public DataApiResult createProduct(@RequestBody ProductDTO dto) {
+            DataApiResult result = new DataApiResult();
 
         try {
             Product product = new Product();
             product.setName(dto.getName());
-            product.setShortDesc(dto.getShortDesc());
+            product.setCategory(categoryService.findOne(dto.getCategoryId()));
             product.setPrice(dto.getPrice());
             product.setMainImage(dto.getMainImage());
-            product.setCategory(categoryService.findOne(dto.getCategoryId()));
-            product.setSalePercent(dto.getSalePercent());
-            product.setSalePrice(dto.getSalePrice());
             product.setCreatedDate(new Date());
+
             productService.addNewProduct(product);
             result.setData(product.getId());
             result.setMessage("Save product successfully: " + product.getId());
@@ -60,12 +60,9 @@ public class ProductApiController {
         try {
             Product product = productService.findOne(productId);
             product.setName(dto.getName());
-            product.setShortDesc(dto.getShortDesc());
+            product.setCategory(categoryService.findOne(dto.getCategoryId()));
             product.setPrice(dto.getPrice());
             product.setMainImage(dto.getMainImage());
-            product.setCategory(categoryService.findOne(dto.getCategoryId()));
-            product.setSalePercent(dto.getSalePercent());
-            product.setSalePrice(dto.getSalePrice());
             product.setCreatedDate(new Date());
             productService.addNewProduct(product);
             result.setSuccess(true);
@@ -80,27 +77,23 @@ public class ProductApiController {
 
 
     @GetMapping("/detail/{productId}")
-    public DataApiResult detailProduct(@PathVariable int productId){
-        DataApiResult result= new DataApiResult();
+    public DataApiResult detailProduct(@PathVariable int productId) {
+        DataApiResult result = new DataApiResult();
 
         try {
             Product productEntity = productService.findOne(productId);
-            if(productEntity == null) {
+            if (productEntity == null) {
                 result.setSuccess(false);
                 result.setMessage("Can't find this product");
             } else {
                 ProductDTO dto = new ProductDTO();
                 dto.setId(productEntity.getId());
-                if(productEntity.getCategory() != null) {
+                if (productEntity.getCategory() != null) {
                     dto.setCategoryId(productEntity.getCategory().getId());
                 }
                 dto.setMainImage(productEntity.getMainImage());
                 dto.setName(productEntity.getName());
                 dto.setPrice(productEntity.getPrice());
-                dto.setShortDesc(productEntity.getShortDesc());
-                dto.setSalePercent(productEntity.getSalePercent());
-                dto.setPrice(productEntity.getPrice());
-                dto.setCreatedDate(new Date());
                 result.setSuccess(true);
                 result.setData(dto);
                 result.setMessage("Success");
@@ -112,10 +105,5 @@ public class ProductApiController {
 
         return result;
     }
-
-
-
-
-
 
 }

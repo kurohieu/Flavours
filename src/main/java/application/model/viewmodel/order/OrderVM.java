@@ -12,6 +12,7 @@ public class OrderVM {
     private Date createdDate;
     private String price;
     private String status;
+
     public int getId() {
         return id;
     }
