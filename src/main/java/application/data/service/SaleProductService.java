@@ -19,6 +19,7 @@ public class SaleProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     public void addNewSaleProduct(SaleProduct saleProduct) {
         saleProductRepository.save(saleProduct);
     }
@@ -51,8 +52,13 @@ public class SaleProductService {
         }
         return false;
     }
-     public SaleProduct findSaleProductByProductIdAndCurrentDate(Integer productId, Date currentDate){
-         return saleProductRepository.findSaleProductByProductIdAndCurrentDate(productId,currentDate);
-     }
 
- }
+    public SaleProduct findSaleProductByProductIdAndCurrentDate(Integer productId, Date currentDate) {
+        return saleProductRepository.findSaleProductByProductIdAndCurrentDate(productId, currentDate);
+    }
+
+public  List<SaleProduct> getSaleProductList(int productId){
+        return  saleProductRepository.getProductBySale((productId));
+}
+
+}

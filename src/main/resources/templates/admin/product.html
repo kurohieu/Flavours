@@ -58,11 +58,11 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div class="page-header float-right">
+                    <div class="page-header float-right">product
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="/admin">Dashboard</a></li>
-                                <li class="active" ><a href="/admin/product">Data product</a></li>
+                                <li class="active" ><a th:href="@{/admin/product}">Data product</a></li>
                             </ol>
                         </div>
                     </div>
@@ -74,24 +74,24 @@
     <div class="content">
         <div class="animated fadeIn">
 
-                <form style="max-width: 100%" class="header-search-form" th:object="${product}" th:action="${'/admin/product?'
+                <form style="max-width: 100%" class="header-search-form" th:object="${productname}" th:action="${'/admin/product?'
                                         +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
                                         +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
                                         +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
                                         +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))
                                         +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <label>Show
-                                    <select th:field="*{size}"
-                                            class="form-control form-control-sm" onchange="this.form.submit()">
-                                        <option th:value="10">10</option>
-                                        <option th:value="20">20</option>
-                                        <option th:value="50">50</option>
-                                        <option th:value="-1">All</option>
-                                    </select>
-                                </label>
-                            </div>
+<!--                            <div class="col-lg-6">-->
+<!--                                <label>Show-->
+<!--                                    <select th:field="*{}"-->
+<!--                                            class="form-control form-control-sm" onchange="this.form.submit()">-->
+<!--                                        <option th:value="10">10</option>-->
+<!--                                        <option th:value="20">20</option>-->
+<!--                                        <option th:value="50">50</option>-->
+<!--                                        <option th:value="-1">All</option>-->
+<!--                                    </select>-->
+<!--                                </label>-->
+<!--                            </div>-->
                             <div class="col-lg-6" >
                                 <label style="float: right">Search:<input type="search" th:field="*{name}"
                                                      class="form-control form-control-sm"

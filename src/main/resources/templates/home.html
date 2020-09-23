@@ -127,20 +127,20 @@
     <section class=" wow bounceInUp animated">
         <div class="best-pro slider-items-products container">
             <div class="new_title">
-                <h2>New Product</h2>
+                <h2>Top Selling</h2>
             </div>
             <div class="cate-banner-img">
-                <img src="img/category-banner.jpg" alt="Retis lapen casen"></div>
+                <img src="img/category-banner.jpg" ></div>
             <div id="best-seller" class="product-flexslider hidden-buttons">
                 <div class="slider-items slider-width-col4 products-grid">
-                    <div class="item" th:each="product : ${vm.getProductNewVMs()}" >
+                    <div class="item" th:each="product : ${vm.getProductTopSellingVMs()}" >
                         <div class="item-inner" th:href="${'/?productId='+product.getId()}">
                             <div class="item-img">
                                 <div class="item-img-info">
                                     <a th:href="'/product/'+${product.getId()}" title="Retis lapen casen" class="product-image">
                                         <img th:src="${product.getMainImage()}" th:alt="${product.getName()} ">
                                     </a>
-                                    <div class="new-label new-top-left">New</div>
+                                    <div class="new-label new-top-left"></div>
                                     <div class="item-box-hover">
                                         <div class="box-inner">
                                             <div class="actions"><span class="add-to-links"><a href="#" class="link-wishlist" title="Add to Wishlist"><span>Add to Wishlist</span></a>
@@ -386,21 +386,17 @@
 <!--        <div id="fade" style="display: block;"></div>-->
 <div th:replace="fragments/footer :: footer_info"></div>
 <!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<!--jquery để trên cùng-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 <!--basic-->
 
-<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+
 <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{js/parallax.js}"></script>
 <script type="text/javascript" th:src="@{js/revslider.js}"></script>

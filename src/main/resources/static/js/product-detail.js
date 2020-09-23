@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
 
     function setCookie(cname, cvalue, exdays) {
@@ -74,4 +74,3 @@ $(document).ready(function() {
         });
     });
 
-});

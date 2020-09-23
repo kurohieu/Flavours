@@ -45,6 +45,8 @@ public class Product {
     @Column(name = "main_image")
     private String mainImage;
 
+    @Column(name = "amount")
+    private int amount;
 
     @Column(name = "price")
     private Double price;
@@ -146,5 +148,13 @@ public class Product {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

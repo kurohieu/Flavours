@@ -1,9 +1,6 @@
 package application.data.repository;
 
-import application.data.model.Product;
 import application.data.model.SaleProduct;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +20,12 @@ public interface SaleProductRepository extends JpaRepository<SaleProduct, Intege
                                                          @Param("currentDate") Date currentDate);
 
 
+
+
+ @Query(value="SELECT * FROM  FROM db_sale_product  sp \n" +
+            "INNER JOIN db_product p ON p.product_id = sp.product_id\n" +
+            "INNER JOIN db_sale s ON sp.sale_id = s.sale_id\n" +
+            "WHERE p.product_id = ?1 AND start_date <= (SELECT CURDATE()) AND (end_date) >= (SELECT CURDATE())",
+            nativeQuery= true)
+List<SaleProduct> getProductBySale(int product_id);
 }

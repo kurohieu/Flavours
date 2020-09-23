@@ -18,8 +18,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bxslider.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user-detail.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="all"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" media="all"/>
+
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -32,20 +34,128 @@
 <div th:replace="fragments/header :: header_info"></div>
 
 
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="side-bar">
+                    <div class="user-info">
+                        <img class="img-profile img-circle img-responsive center-block" th:src="${user.getAvatar()}" alt="" style="border-radius: 50%">
+                        <ul class="meta list list-unstyled">
+                            <li class="name" >
+                                <a href="#" th:text="${user.getName()}"></a>
+                            </li>
+                            <li class="email"><a href="#" th:text="${user.getEmail()}"></a></li>
+<!--
+                            <li class="activity">Last logged in: Today at 2:18pm</li>
+-->
+                        </ul>
+                    </div>
+                    <nav class="side-menu">
+                        <ul class="nav">
+                            <li class="active"><a href="#"><span class="fa fa-user"></span> Profile</a></li><!--
+                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
+                            <li><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+                            <li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+
+                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
+                            <li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>-->
+                        </ul>
+                    </nav>
+                </div>
+                <div class="content-panel">
+                    <form class="form-horizontal" th:action="@{/user/update}" th:object="${user}" method="post" id="myForm">
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">User information</h3>
+                            <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                    <img class="img-rounded img-responsive" th:if="*{avatar}" th:src="*{avatar}" alt="">
+                                    <img class="img-rounded img-responsive" th:unless="*{avatar}" src="https://iptc.org/wp-content/uploads/2018/05/avatar-anonymous-300x300.png" alt="">
+                                </figure>
+                                <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+                                    <input type="file" class="file-uploader pull-left" id="input-avatar">
+                                    <input type="text" id="avatar" th:field="*{avatar}" style="display: none">
+                                </div>
+                            </div>
+
+                            <div th:if="${param.updateSuccess}">
+                                <div class="alert alert-primary">
+                                    Update success !!
+                                </div>
+                            </div>
+
+                            <div th:if="${param.updateFail}">
+                                <div class="alert alert-danger">
+                                    Update fail !!
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" id="name" th:field="*{name}" name="name" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
+                                <select th:field="*{gender}">
+                                    <option value="0">Not determined</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+                            </div>
+
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Contact info</h3>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email </label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" name="email" />
+                                </div>  
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Address</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" id="name" th:field="*{address}" name="address" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone Number</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" id="name" th:field="*{phoneNumber}" name="phoneNumber" />
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <hr>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <button class="btn btn-primary" type="submit">Update</button>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <a class="btn btn-success" th:href="@{'/user/change-password'}" role="button">Change password</a>
+                                </div>
+                            </div>
+
+                        </div>          
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
 
 
 
 
 <div th:replace="fragments/footer :: footer_info"></div>
 <!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>

@@ -1,7 +1,6 @@
 package application.model.viewmodel.admin;
 
 import application.model.viewmodel.common.CategoryVM;
-import application.model.viewmodel.common.LayoutHeaderAdminVM;
 import application.model.viewmodel.common.ProductVM;
 
 import java.util.List;
@@ -10,8 +9,7 @@ public class AdminProductVM {
 
     private List<ProductVM> productVMs;
     private List<CategoryVM> categoryVMs;
-
-
+    private String keyWord;
 
     public List<ProductVM> getProductVMs() {
         return productVMs;
@@ -28,5 +26,14 @@ public class AdminProductVM {
     public void setCategoryVMs(List<CategoryVM> categoryVMs) {
         this.categoryVMs = categoryVMs;
     }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
+
 
 }

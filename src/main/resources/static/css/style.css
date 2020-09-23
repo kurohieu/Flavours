@@ -13044,10 +13044,8 @@ button {
 .element:last-child {
     margin-bottom: 0;
 }
+/* Header section */
 
-*------------------
-  Header section
----------------------*/
 
 .header-top {
     padding: 18px 0 14px;
@@ -13156,7 +13154,7 @@ button {
     top: -8px;
     font-size: 10px;
     font-weight: 700;
-    color: #fff;
+    color: #ffffff;
     background: #f51167;
     line-height: 1;
     text-transform: uppercase;

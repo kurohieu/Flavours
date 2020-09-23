@@ -39,7 +39,7 @@ public class SaleProductApiController {
         try {
             Random random = new Random();
             List<Product> products = productService.getListAllProducts();
-            for (int i=0;i<=20;i++){
+            for (int i=0;i<=10;i++){
                 products.add(products.get(random.nextInt(products.size())));
             }
             List<Sale> sales = saleService.getListAllSales();

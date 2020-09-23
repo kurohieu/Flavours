@@ -2,7 +2,6 @@ package application.model.dto;
 
 import application.extension.CustomDateDeserializer;
 import application.extension.CustomDateSerializer;
-import application.extension.CustomPriceSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -17,6 +16,7 @@ public class ProductDTO {
     private String shortDesc;
     private String mainImage;
 
+    private int amount;
     private Double price;
 
     @JsonSerialize(using = CustomDateSerializer.class)
@@ -79,5 +79,13 @@ public class ProductDTO {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

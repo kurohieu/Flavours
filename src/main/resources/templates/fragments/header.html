@@ -10,20 +10,7 @@
     <link rel="icon" href="#" type="image/x-icon">
     <link rel="shortcut icon" href="#" type="image/x-icon">
         <!-- CSS Style -->
-        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" media="all"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/revslider.css}" />
-        <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bxslider.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="all"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" media="all"/>
-
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+      
 
 </head>
 
@@ -45,311 +32,30 @@
                     <div class="logo"> <a th:href="@{/}" title="Flavours HTML">
                         <div><img th:src="@{/img/logo.png}" alt="Flavours Store"></div>
                     </a> </div>
-
-
-                    <div class="header-top">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 text-center text-lg-left">
-                                    <!-- logo -->
-                                    <a href="/" class="site-logo">
-                                        <img th:src="@{/images/logo.png}" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-xl-6 col-lg-5">
-                                    <form class="header-search-form" th:object="${product}"
-                                          th:action="${'/category?'+('&name='+#httpServletRequest.getParameter('name'))
-                                        +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
-                                        +(#httpServletRequest.getParameter('manufacturerId')==null?'':('&manufacturerId='+#httpServletRequest.getParameter('manufacturerId')))
-                                        +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
-                                        +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
-                                        +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))
-                                        +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}">
-                                        <input type="text" placeholder="Nhập tên sản phẩm, hãng hoặc mã sản phẩm...."
-                                               th:field="*{name}">
-                                        <button><i class="flaticon-search"></i></button>
-                                    </form>
-                                </div>
-                                <div class="col-xl-4 col-lg-5">
-                                    <div class="user-panel">
-                                        <div class="up-item">
-                                            <div sec:authorize="isAnonymous()">
-                                                <ul class="main-menu">
-                                                    <li><i class="flaticon-profile"></i>
-                                                        <a href="/login">Đăng nhập</a>
-                                                        <ul class="sub-menu">
-                                                            <li><a href="/category">Lịch sử đơn hàng</a></li>
-                                                            <li><a href="/register">Tạo tài khoản</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div sec:authorize="isAuthenticated()">
-                                                <ul class="main-menu">
-                                                    <li><i class="flaticon-profile"></i>
-                                                        <a href="/login" th:text="${#httpServletRequest.remoteUser}"></a>
-                                                        <ul class="sub-menu">
-                                                            <li><a th:href="@{/user/detail}">Thông tin người dùng</a></li>
-                                                            <li><a th:href="@{/order/history}">Lịch sử đơn hàng</a></li>
-                                                            <li><a th:href="@{/logout}">Đăng xuất</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="up-item">
-                                            <ul class="main-menu">
-                                                <li>
-                                                    <div class="shopping-card">
-                                                        <i class="flaticon-bag"></i>
-                                                        <span th:text="${cartVM.ProductAmount}"></span>
-                                                    </div>
-                                                    <a href="/cart">Giỏ hàng</a>
-                                                    <ul class="sub-menu">
-                                                        <div class="checkout-cart">
-                                                            <h3 style="font-size: 18px">Giỏ hàng của bạn</h3>
-                                                            <ul class="product-list" th:each="cart: ${cartVM.getCartProductVMs()}">
-                                                                <li>
-                                                                    <div class="pl-thumb"><img th:src="${cart.getMainImage()}" alt=""></div>
-                                                                    <h6 th:text="${cart.getProductName()}"></h6>
-                                                                    <p ><span th:text="${cart.getPrice()}"></span><span>  VNĐ</span></p>
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="price-list">
-                                                                <li>Tổng tiền</li>
-                                                                <li><span th:text="${cartVM.getTotalPrice()}"></span><span>  VNĐ</span></li>
-                                                            </ul>
-                                                        </div>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>G
-
-
-
-
                     <div class="fl-nav-menu">
 
                         <nav>
                             <div class="mm-toggle-wrap">
                                 <div class="mm-toggle"><i class="icon-align-justify"></i><span class="mm-label">Menu</span> </div>
                             </div>
-
                             <div class="nav-inner">
                                 <!-- BEGIN NAV -->
                                 <ul id="nav" class="hidden-xs">
 
-                                    <li class="mega-menu"> <a class="level-top" href="/grid?categoryId=1"><span>Salads</span></a>
-<!--                                        <div class="level0-wrapper dropdown-6col" style="left: 0px; display: none;">-->
-<!--                                            <div class="container">-->
-<!--                                                <div class="level0-wrapper2">-->
-<!--                                                    <div class="col-1">-->
-<!--                                                        <div class="nav-block nav-block-center">-->
-<!--                                                            &lt;!&ndash;mega menu&ndash;&gt;-->
-<!--                                                            <ul class="level0">-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Bread Salads‎</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Cappon Magro-->
-<!--</span></a> </li>-->
+                                   
 
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Fruit Salads‎</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Candle Salad</span></a> </li>-->
-<!--                                                                        &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Salad Dressings</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Louis Dressings</span></a> </li>-->
-<!--                                                                        &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Leaf Vegetable</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Fenugreek</span></a> </li>-->
-<!--                                                                        &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Stem Vegetables</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Crithmum</span></a> </li>-->
-<!--                                                                        &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                                <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=1"><span>Root Vegetables</span></a>-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                    <ul class="level1">-->
-<!--                                                                        <li class="level2 nav-6-1-1"> <a th:href="@{/grid}"><span>Garlic</span></a> </li>-->
-
-<!--                                                                    </ul>-->
-<!--                                                                    &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                    &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                </li>-->
-<!--                                                                &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            </ul>-->
-<!--                                                            &lt;!&ndash;level0&ndash;&gt;-->
-<!--                                                        </div>-->
-<!--                                                        &lt;!&ndash;nav-block nav-block-center&ndash;&gt;-->
-<!--                                                    </div>-->
-<!--                                                    &lt;!&ndash;col-1&ndash;&gt;-->
-<!--                                                    <div class="col-2">-->
-<!--                                                        <div class="menu_image"><a title="" th:href="@{/grid}"><img alt="menu_image" th:src="@{img/menu-bag.png}"></a></div>-->
-
-<!--                                                    </div>-->
-<!--                                                    &lt;!&ndash;col-2&ndash;&gt;-->
-<!--                                                </div>-->
-<!--                                                &lt;!&ndash;level0-wrapper2&ndash;&gt;-->
-<!--                                            </div>-->
-<!--                                            &lt;!&ndash;container&ndash;&gt;-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash;level0-wrapper dropdown-6col&ndash;&gt;-->
-<!--                                        &lt;!&ndash;mega menu&ndash;&gt;-->
-
-                                    </li>
-                                    <li class="mega-menu"> <a class="level-top" href="/grid?categoryId=3"><span>Fast Food</span></a>
-<!--                                        <div class="level0-wrapper dropdown-6col" style="left: 0px; display: none;">-->
-<!--                                            <div class="container">-->
-<!--                                                <div class="level0-wrapper2">-->
-<!--                                                    <div class="nav-block nav-block-center">-->
-<!--                                                        &lt;!&ndash;mega menu&ndash;&gt;-->
-
-<!--                                                        <ul class="level0">-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>Indian</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Aloo Chaat</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Kachori</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Panipuri</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-<!--                                                            &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>Pizza</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Greek Pizza</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Grilled Pizza</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Pizza Strips</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-<!--                                                            &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>McDonald's</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Kiwiburger</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Happy Meal</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>McMuffin</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-<!--                                                            &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>Wendy's Foods</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Bacon Deluxe</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Baconator</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Frosty</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-<!--                                                            &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>Burger King</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>TenderCrisp</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Whopper</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Kuro Burger</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-<!--                                                            &lt;!&ndash;level3 nav-6-1 parent item&ndash;&gt;-->
-<!--                                                            <li class="level3 nav-6-1 parent item"> <a href="/grid?categoryId=3"><span>Sandwiches‎</span></a>-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                                <ul class="level1">-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span> Hot Dogs‎</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>American Sandwiches</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                    <li class="level2 nav-6-1-1"> <a href="/grid?categoryId=3"><span>Chilean Sandwiches</span></a> </li>-->
-<!--                                                                    &lt;!&ndash;level2 nav-6-1-1&ndash;&gt;-->
-<!--                                                                </ul>-->
-<!--                                                                &lt;!&ndash;level1&ndash;&gt;-->
-<!--                                                                &lt;!&ndash;sub sub category&ndash;&gt;-->
-<!--                                                            </li>-->
-
-
-
-
-<!--                                            </div>-->
-<!--                                            &lt;!&ndash;container&ndash;&gt;-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash;level0-wrapper dropdown-6col&ndash;&gt;-->
-<!--                                        &lt;!&ndash;mega menu&ndash;&gt;-->
-                                    </li>
-                                    <li class="mega-menu"> <a class="level-top"href="/grid?categoryId=4"><span>Vegetable</span></a> </li>
+                                    <li class="mega-menu"> <a class="level-top" href="/grid?categoryId=1"><span>Soups</span></a></li>
+                                    <li class="mega-menu"> <a class="level-top" href="/grid?categoryId=3"><span>Fast Food</span></a></li>
+                                    <li class="mega-menu"> <a class="level-top"href="/grid?categoryId=7"><span>Salads</span></a> </li>
                                     <li class="mega-menu"> <a class="level-top"href="/grid?categoryId=5"><span>Fruits</span></a> </li>
+
                                     <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a>
                                         <!--sub sub category-->
                                         <ul class="level1">
                                             <li class="level1 first"><a th:href="@{/grid}"><span>Product Grid</span></a></li>
                                             <li class="level1 nav-10-3"> <a th:href="@{/product-detail}"> <span>Product Detail</span> </a> </li>
                                             <li class="level1 nav-10-4"> <a th:href="@{/cart}"> <span>Cart Page</span> </a> </li>
-                                            <li class="level1 first parent"><a th:href="@{+/checkout}"><span>Checkout</span></a>
+                                            <li class="level1 first parent"><a th:href="@{'../order/checkout'}"><span>Checkout</span></a>
                                                 <!--sub sub category-->
 
                                                 <!--sub sub category-->
@@ -364,11 +70,12 @@
                                                 </ul>
                                                 <!--sub sub category-->
                                             </li>
-                                            <li class="level1"><a th:href="@{/contact-us}"><span>Contact us</span></a> </li>
-                                            <li class="level1"><a th:href="@{/404error}"><span>404 Error Page</span></a> </li>
-                                            <li class="level1"><a th:href="@{/login}"><span>Login Page</span></a> </li>
                                         </ul>
                                     </li>
+
+
+
+
                                     <li class="fl-custom-tabmenulink mega-menu"> <a href="#" class="level-top"> <span>Custom</span> </a>
                                         <div class="level0-wrapper fl-custom-tabmenu" style="left: 0px; display: none;">
                                             <div class="container">
@@ -399,6 +106,63 @@
                                             </div>
                                         </div>
                                     </li>
+
+
+                                 <li class="level0 parent drop-menu" > 
+
+                                  
+                                      
+                                    <a  href="/login">
+                                        <span>Login</span> </a>
+                                     
+                                        <ul class="level1">
+                                           <li class="level1 first parent">
+                                                <a href="/category"><span>Order History</span>
+                                                </a></li>
+                                            
+                                            <li class="level1 first parent">
+                                                <a href="/register"><span>Created anacount</span>
+                                                </a>
+
+ 
+                                        </li>
+
+                                        </ul>
+                                            
+
+
+                                  
+                                     <div sec:authorize="isAuthenticated()">
+                                    
+                                    <a href="/login" th:text="${#httpServletRequest.remoteUser}"></a>
+                                      <ul class="level1">
+                                         <li class="level1 first parent">
+                                                <a th:href="@{/user/detail}"><span>User information</span>
+                                                </a></li>
+                                            
+                                            <li class="level1 first parent">
+                                                <a th:href="@{/order/history}"><span>Order History</span>
+                                                </a> 
+                                            </li>
+
+                                                  <li class="level1 first parent">
+                                                <a th:href="@{/logout}"><span>Log Out</span>
+                                                </a>
+                                                 </li>
+
+                                              </ul>                                        
+                                    
+                                    </div>
+
+
+
+
+                                    </li>
+
+
+
+
+
                                 </ul>
                                 <!--nav-->
                             </div>
@@ -406,112 +170,102 @@
                     </div>
                     <!--row-->
                 </div>
-<!--                <div class="fl-header-right">-->
-<!--                    <div class="fl-links">-->
-<!--                        <div class="no-js"> <a title="Company" class="clicker"></a>-->
-<!--                            <div class="fl-nav-links">-->
-<!--                                <div class="language-currency">-->
-<!--                                    <div class="fl-language">-->
-<!--                                        <ul class="lang">-->
-<!--                                            <li><a href="#"> <img th:src="@{/img/english.png}" alt="English"> <span>English</span> </a></li>-->
-<!--                                            <li><a href="#"> <img th:src="@{/img/francais.png}" alt="French"> <span>French</span> </a></li>-->
-<!--                                            <li><a href="#"> <img th:src="@{/img/german.png}" alt="German"> <span>German</span> </a></li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash;fl-language&ndash;&gt;-->
-<!--                                    &lt;!&ndash; END For version 1,2,3,4,6 &ndash;&gt;-->
-<!--                                    &lt;!&ndash; For version 1,2,3,4,6 &ndash;&gt;-->
-<!--                                    <div class="fl-currency">-->
-<!--                                        <ul class="currencies_list">-->
-<!--                                            <li><a href="#" title="EGP"> £</a></li>-->
-<!--                                            <li><a href="#" title="EUR"> €</a></li>-->
-<!--                                            <li><a href="#" title="USD"> $</a></li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash;fl-currency&ndash;&gt;-->
-<!--                                    &lt;!&ndash; END For version 1,2,3,4,6 &ndash;&gt;-->
-<!--                                </div>-->
-<!--                                <ul class="links">-->
-<!--                                    <li><a th:href="@{/dashboard}" title="My Account">My Account</a></li>-->
-<!--                                    <li><a th:href="@{/wishlist}" title="Wishlist">Wishlist</a></li>-->
-<!--                                    <li><a th:href="@{/checkout}" title="Checkout">Checkout</a></li>-->
-<!--                                    <li><a th:href="@{/blog}" title="Blog"><span>Blog</span></a></li>-->
-<!--                                    <li class="last"><a th:href="@{/login}" title="Login"><span>Login</span></a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="fl-cart-contain">-->
-<!--                        <div class="mini-cart">-->
-<!--                            <div class="basket"> <a th:href="@{/cart}">-->
-<!--                                <span th:text="${cartVM.ProductAmount}" > </span></a> </div>-->
-<!--                            <div class="fl-mini-cart-content" style="display: none;">-->
-<!--                                <div class="block-subtitle">-->
-<!--                                    <div class="top-subtotal" >-->
-<!--                                        <span th:text="${cartVM.ProductAmount} +'items,'"></span>-->
-<!--                                        <span class="price"  th:text="${cartVM.getTotalPrice()}+'$'"></span> </div>-->
-<!--                                    &lt;!&ndash;top-subtotal&ndash;&gt;-->
-<!--                                    &lt;!&ndash;pull-right&ndash;&gt;-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash;block-subtitle&ndash;&gt;-->
-<!--                                <ul class="mini-products-list" id="cart-sidebar" th:each="cart: ${cartVM.getCartProductVMs()}">-->
-<!--                                    <li class="item first">-->
-<!--                                        <div class="item-inner">-->
-<!--                                            <a class="product-image"  href="#">-->
-<!--                                                <img th:src="${cart.getMainImage()}"></a>-->
-<!--                                            <div class="product-details">-->
-<!--                                                <div class="access">-->
-<!--                                                    <a class="btn-remove1" title="Remove This Item">Remove</a> </div>-->
-<!--                                                &lt;!&ndash;access&ndash;&gt;-->
-<!--                                                <strong th:text="${cartVM.ProductAmount}" ></strong> x-->
-<!--                                                <span class="price" th:text="${cart.getPrice()}+'$'"></span>-->
-<!--                                                <p class="product-name" th:text="${cart.getProductName()}"><a th:href="@{cart.getId}"></a></p>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </li>-->
+                <div class="fl-header-right">
+                    <div class="fl-links">
+                        <div class="no-js"> <a title="Company" class="clicker"></a>
+                            <div class="fl-nav-links">
+                                <div class="language-currency">
+                                    <div class="fl-language">
+                                        <ul class="lang">
+                                            <li><a href="#"> <img th:src="@{/img/english.png}" alt="English"> <span>English</span> </a></li>
+                                            <li><a href="#"> <img th:src="@{/img/francais.png}" alt="French"> <span>French</span> </a></li>
+                                            <li><a href="#"> <img th:src="@{/img/german.png}" alt="German"> <span>German</span> </a></li>
+                                        </ul>
+                                    </div>
+                                    <!--fl-language-->
+                                    <!-- END For version 1,2,3,4,6 -->
+                                    <!-- For version 1,2,3,4,6 -->
+                                    <div class="fl-currency">
+                                        <ul class="currencies_list">
+                                            <li><a href="#" title="EGP"> £</a></li>
+                                            <li><a href="#" title="EUR"> €</a></li>
+                                            <li><a href="#" title="USD"> $</a></li>
+                                        </ul>
+                                    </div>
+                                    <!--fl-currency-->
+                                    <!-- END For version 1,2,3,4,6 -->
+                                </div>
+                                <ul class="links">
+                                    <li><a th:href="@{/dashboard}" title="My Account">My Account</a></li>
+                                    <li><a th:href="@{/wishlist}" title="Wishlist">Wishlist</a></li>
+                                    <li><a th:href="@{/checkout}" title="Checkout">Checkout</a></li>
+                                    <li><a th:href="@{/blog}" title="Blog"><span>Blog</span></a></li>
+                                    <li class="last"><a th:href="@{/login}" title="Login"><span>Login</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fl-cart-contain">
+                        <div class="mini-cart">
+                            <div class="basket"> <a th:href="@{/cart}">
+                                <span th:text="${cartVM.ProductAmount}" > </span></a> </div>
+                            <div class="fl-mini-cart-content" style="display: none;">
+                                <div class="block-subtitle">
+                                    <div class="top-subtotal" >
+                                        <span th:text="${cartVM.ProductAmount} +'items,'"></span>
+                                        <span class="price"  th:text="${cartVM.getTotalPrice()}+'$'"></span> </div>
+                                    <!--top-subtotal-->
+                                    <!--pull-right-->
+                                </div>
+                                <!--block-subtitle-->
+                                <ul class="mini-products-list" id="cart-sidebar" th:each="cart: ${cartVM.getCartProductVMs()}">
+                                    <li class="item first">
+                                        <div class="item-inner">
+                                            <a class="product-image"  href="#">
+                                                <img th:src="${cart.getMainImage()}"></a>
+                                            <div class="product-details">
+                                                <div class="access">
+                                                    <a class="btn-remove1" title="Remove This Item">Remove</a> </div>
+                                                <!--access-->
+                                                <strong th:text="${cartVM.ProductAmount}" ></strong> x
+                                                <span class="price" th:text="${cart.getPrice()}+'$'"></span>
+                                                <p class="product-name" th:text="${cart.getProductName()}"><a th:href="@{cart.getId}"></a></p>
+                                            </div>
+                                        </div>
+                                    </li>
 
-<!--                                </ul>-->
-<!--                                <div class="actions">-->
-<!--                                    <button class="btn-checkout" title="Checkout" type="button" onClick="window.location=(checkout)"><span>Checkout</span></button>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash;actions&ndash;&gt;-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash;fl-mini-cart-content&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;mini-cart&ndash;&gt;-->
-<!--                    <div class="collapse navbar-collapse" >-->
-<!--                        <form class="navbar-form" role="search"  method="get" th:object="${product}"-->
-<!--                              th:action="${'/grid?'+('&name='+#httpServletRequest.getParameter('name'))-->
-<!--                                        +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))-->
-<!--                                        +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))-->
-<!--                                        +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))-->
-<!--                                        +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))-->
-<!--                                        +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}">-->
+                                </ul>
+                                <div class="actions">
+                                    <button class="btn-checkout" title="Checkout" type="button" onClick="window.location=(checkout)"><span>Checkout</span></button>
+                                </div>
+                                <!--actions-->
+                            </div>
+                            <!--fl-mini-cart-content-->
+                        </div>
+                    </div>
+                    <!--mini-cart-->
+                    <div class="collapse navbar-collapse" >
+                        <form class="navbar-form" role="search"  method="get" th:object="${product}"
+                              th:action="${'/grid?'+('&name='+#httpServletRequest.getParameter('name'))
+                                        +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
+                                        +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                        +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                        +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))
+                                        +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}">
 
-<!--                            <div class="input-group" >-->
-<!--                                <input type="text" class="form-control" th:field="*{name}" placeholder="What do yo u need?">-->
-<!--                                <span class="input-group-btn">-->
-<!--                  <button type="submit" class="search-btn">-->
-<!--                      <span class="glyphicon glyphicon-search"> <span class="sr-only">Search</span> </span> </button>-->
-<!--                  </span> </div>-->
-<!--                        </form>-->
+                            <div class="input-group" >
+                                <input type="text" class="form-control" th:field="*{name}" placeholder="What do yo u need?">
+                                <span class="input-group-btn">
+                  <button type="submit" class="search-btn">
+                      <span class="glyphicon glyphicon-search"> <span class="sr-only">Search</span> </span> </button>
+                  </span> </div>
+                        </form>
 
-<!--&lt;!&ndash;                        <form class="navbar-form" th:object="${product}"&ndash;&gt;-->
-<!--&lt;!&ndash;                              th:action="${'/grid?'+('&name='+#httpServletRequest.getParameter('name'))&ndash;&gt;-->
-<!--&lt;!&ndash;                                        +(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))&ndash;&gt;-->
-<!--&lt;!&ndash;                                        +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))&ndash;&gt;-->
-<!--&lt;!&ndash;                                        +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))&ndash;&gt;-->
-<!--&lt;!&ndash;                                        +(#httpServletRequest.getParameter('sortByPrice')==null?'':('&sortByPrice='+#httpServletRequest.getParameter('sortByPrice')))&ndash;&gt;-->
-<!--&lt;!&ndash;                                        +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <input type="text" placeholder="Nhập tên sản phẩm, hãng hoặc mã sản phẩm...."&ndash;&gt;-->
-<!--&lt;!&ndash;                                   th:field="*{name}">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <button><i class="flaticon-search"></i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </form>&ndash;&gt;-->
 
-<!--                    </div>-->
-<!--                    &lt;!&ndash;links&ndash;&gt;-->
-<!--                </div>-->
+
+                    </div>
+                    <!--links-->
+                </div>
             </div>
         </div>
     </header>
