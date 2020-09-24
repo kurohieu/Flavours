@@ -51,7 +51,7 @@ public class AdminController extends BaseController {
     public String product(Model model,
                           @Valid @ModelAttribute("productname") ProductVM productName,
                           @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                          @RequestParam(name = "size", required = false, defaultValue = "8") Integer size
+                          @RequestParam(name = "size", required = false, defaultValue = "12") Integer size
     ) {
         AdminProductVM vm = new AdminProductVM();
         DecimalFormat df = new DecimalFormat("##,###,###");
@@ -123,7 +123,7 @@ public class AdminController extends BaseController {
     public String category(Model model,
                            @Valid @ModelAttribute("categoryname") CategoryVM categoryName,
                            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                           @RequestParam(name = "size", required = false, defaultValue = "8") Integer size
+                           @RequestParam(name = "size", required = false, defaultValue = "12") Integer size
     ) {
         AdminCategoryVM vm = new AdminCategoryVM();
 
